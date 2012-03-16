@@ -1,0 +1,8 @@
+
+NEEDED DOCUMENTS:
+    ✓ EFF panopticlick
+    ✓ original note
+    ✓ DAP stuff
+    ✓ Gamepad API
+
+
