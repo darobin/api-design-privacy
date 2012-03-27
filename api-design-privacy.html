@@ -86,6 +86,58 @@
         </p>
       </section>
     </section>
+    <section>
+      <h2>Privacy by Design</h2>
+      <p>
+        Privacy by design is a design approach that takes malicious practices for granted and endeavours to prevent and
+        mitigate them from the ground up by applying specific strategies to the creation of software (in this document's
+        scope specifically of APIs).
+      </p>
+      <p>
+        It is particularly important in privacy by design that users be exposed to as few direct privacy decisions as
+        possible. Notably, it should never be assumed that users can be “educated” into making correct privacy decisions.
+        The reason for this is that user typically interact with their user agent in order to accomplish a specific task.
+        Anything that interrupts the flow of that task's realisation is likely to only be given as cursory a thought
+        as possible. Therefore, requiring users to make privacy decisions whilst in the middle of accomplishing a task
+        is a recipe for poor decisions.
+      </p>
+      <p>
+        There are two primary issues that privacy by design seeks to address.
+      </p>
+      <section>
+        <h2>Poor Information Scoping</h2>
+        <p>
+          In order to accomplish a given operation, a Web application may legitimately require access to some of 
+          the user's private information. The issue here is that in providing access to the required information
+          can sometimes entail exposing a lot more information. For instance, when the user wishes to share one
+          event in their calendar, the entire calendar becomes available; or where the user needs to share the
+          name and email addresses of some of their contacts, the phone numbers, pictures, home addresses, etc.
+          of these contacts are also returned.
+        </p>
+      </section>
+      <section>
+        <h2>User Fingerprinting</h2>
+        <p>
+          Users are routinely tracked across the Web through the use of cookies and other such identification
+          mechanisms. In many cases, these tracking methods can be successfully mitigated by the user agent, for instance
+          by only returning cookies for the top level window in the browsing context (as opposed to providing them
+          for <code>iframe</code>s for instance).
+        </p>
+        <p>
+          Fingerprinting circumvents this by looking at as many of the unique features of a user agent in order to
+          ascertain its uniqueness. For instance, it may look at screen resolution, the availability of specific
+          plugins, at the list of fonts that are installed on the system, the user agent string, the timezone, and
+          a wealth of information that user agents tend to provide by default. Taken one by one, none of these
+          data are sufficient to identify a single user, but put together they collect enough bits to narrow
+          the identification down to just the one person — especially if you take into account the population 
+          that visits a given site or set of sites.
+        </p>
+        <p>
+          A very good demonstration of fingerprinting, alongside with a paper detailing the approach, are
+          available from <a href='http://panopticlick.eff.org/'>Panopticlick — How Unique and Traceable is Your Browser?</a>
+        </p>
+      </section>
+    </section>
     <!-- 
       - what is privacy by design (find nice definition of security by design)
       - save what can be from:
@@ -94,9 +146,9 @@
       - what is fingerprinting
         - pilfer from Panopticlick
       - Mitigation strategies
+        - user mediation (this seems to conflict with not involving users, but here is why not)
         - minimisation
-        - user mediation
-        - action-based availability (gamepad, mouse)
+        - action-based availability (gamepad, mouse — no enumeration–—‚)
     -->
     <section class='appendix'>
       <h2>Acknowledgments</h2>
