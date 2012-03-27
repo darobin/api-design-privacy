@@ -42,7 +42,7 @@
         <a href="http://www.w3.org/2001/tag/"><acronym title="World Wide Web Consortium">W3C</acronym> 
         Technical Architecture Group (TAG)</a>. <a href="/2001/tag/findings">Additional TAG findings</a>, both
         accepted and in draft state, may also be available. The TAG may incorporate this and other findings 
-        into future versions of the [[AWWW]].  Please send comments on this finding to the publicly archived 
+        into future versions of the [[WEBARCH]].  Please send comments on this finding to the publicly archived 
         TAG mailing list <a href="mailto:www-tag@w3.org">www-tag@w3.org</a> 
         (<a href="http://lists.w3.org/Archives/Public/www-tag/">archive</a>).
       </p>
@@ -138,15 +138,53 @@
         </p>
       </section>
     </section>
+    <section>
+      <h2>Design Strategies</h2>
+      <p>
+        The Web application platform requires the availability of a vast array of functionality that can greatly 
+        vary in nature. As a result, not all APIs can look the same, and no single approach can be applied automatically
+        across the board in order to take privacy into account during API design. This section therefore lists
+        strategies that API designers are expected to adapt to the specific requirements of their work.
+      </p>
+      <section>
+        <h2>Action-Based Availability</h2>
+        <p>
+          We seldom pause to think about it, but the manner in which mouse events are provided to Web applications
+          is a good example of privacy by design. When a page is loaded, the application has no way of knowing
+          whether a mouse is attached, what type of mouse it is (let alone which make and model), what kind of
+          capabilities it exposes, how many are attached, and so on. Only when the user decides to use the 
+          mouse — presumably because it is required for interaction — does some of this information become 
+          available. And even then, only the strict minimal is exposed: you could not know whether it is a 
+          trackpad for instance, and the fact that it may have a right button is only exposed if it is used.
+        </p>
+        <p>
+          This is an efficient way to prevent fingerprinting: only the minimal amount of information is provided, and
+          even that only when it is required. Contrast it with a design approach that is more typical of the first
+          proposals one sees to expose new interaction modalities:
+        </p>
+        <pre class='example highlight'>
+          var mice = navigator.getAllMice();
+          for (var i = 0, n = mice.length; i &lt; n; i++) {
+              var mouse = mice[i];
+              // discover all sorts of unnecessary information about each mouse
+              // presumably do something to register event handlers on them
+          }
+        </pre>
+        <p>
+          The “Action-Based Availability” design strategy is applicable beyond mouse events. For instance, 
+          the Gamepad API [[GAMEPAD]] makes use of it. It is impossible for a Web game to know if the user
+          agent has access to gamepads, how many there are, what their capabilities are, etc. It is simply
+          assumed that if the user wishes to interact with the game through the gamepad then she will know
+          when to action it — and actioning it will provide the application with all the information that
+          it needs to operate (but no more than that).
+        </p>
+      </section>
+    </section>
     <!-- 
-      - what is privacy by design (find nice definition of security by design)
-      - save what can be from:
-        - Dan's document
-        - Frederick's document
-      - what is fingerprinting
-        - pilfer from Panopticlick
       - Mitigation strategies
         - user mediation (this seems to conflict with not involving users, but here is why not)
+          - why geolocation is a bad design
+          - web intents
         - minimisation
         - action-based availability (gamepad, mouse — no enumeration–—‚)
     -->
