@@ -37,16 +37,57 @@
       <p>
         This document is a draft TAG finding, and as such has no official standing whatsoever.
       </p>
+      <p>
+        This document is a work in progress from the
+        <a href="http://www.w3.org/2001/tag/"><acronym title="World Wide Web Consortium">W3C</acronym> 
+        Technical Architecture Group (TAG)</a>. <a href="/2001/tag/findings">Additional TAG findings</a>, both
+        accepted and in draft state, may also be available. The TAG may incorporate this and other findings 
+        into future versions of the [[AWWW]].  Please send comments on this finding to the publicly archived 
+        TAG mailing list <a href="mailto:www-tag@w3.org">www-tag@w3.org</a> 
+        (<a href="http://lists.w3.org/Archives/Public/www-tag/">archive</a>).
+      </p>
     </section>
     <section>
       <h2>Introduction</h2>
       <p>
-        XXX
+        User privacy is a core feature of the Web. As the Web continues its evolution into a powerful application
+        platform, an increasing number of its additional abilities risk compromising user privacy unless they
+        are specifically created to promote it. While potentially present in all aspects of the Web platform,
+        this issue is particularly salient when it comes to Javascript APIs since they comprise one of the
+        most frequent and natural extensibility point for powerful features that can be misused, and that are
+        hard to mitigate against.
       </p>
+      <p>
+        This leads to a strong requirement on these APIs to take user privacy into account. This, in turn, imposes
+        design constraints that are different from those found in more traditional applications programming which
+        entails that experience with APIs designed for the latter seldom applies in full and needs to be revisited.
+      </p>
+      <p>
+        In this document we consider only those aspects of privacy and APIs that can be mitigated by API designers,
+        notably providing more information than is necessary for a given operation, not making it possible for the
+        user to control what information is being shared, and user fingerprinting. Conversely we do not cover other
+        privacy attacks such as tricking the user into providing information or maliciously using collected information
+        in ways that were not agreed to by the user. We have chosen this focus because well-designed APIs from the 
+        privacy standpoint should provide a solid foundation for better user privacy in general, because they can help
+        address the problem at the root, and because we feel that they form a coherent whole.
+      </p>
+      <section>
+        <h2>Privacy and Security</h2>
+        <p>
+          It is common for discussions of these privacy issues to raise objections that they are a matter of security
+          and not privacy. Conversely, if raised as matters of security, objections will surface according to which
+          they constitute a specifically privacy problem.
+        </p>
+        <p>
+          It is the authors' considered opinion that this distinction is both immaterial and irrelevant. Both privacy
+          and security are fundamental promises of the Web user agent; when they are broken users suffer and the Web
+          dysfunctions. Providing the means to address the issues raised in this document is therefore a positive
+          step forward irrespective of the way in which they are categorised.
+        </p>
+      </section>
     </section>
     <!-- 
       - what is privacy by design (find nice definition of security by design)
-      - the difference between security and privacy — it depends on how you want to look at it, and it doesn't matter
       - save what can be from:
         - Dan's document
         - Frederick's document
@@ -57,5 +98,15 @@
         - user mediation
         - action-based availability (gamepad, mouse)
     -->
+    <section class='appendix'>
+      <h2>Acknowledgments</h2>
+      <p>
+        In addition to the members of the TAG, the editors would like to thank the following individuals 
+        for their contributions to this document:
+      </p>
+      <p>
+        Ernesto Jiménez, Dominique Hazaël-Massieux, and Frederick Hirsch.
+      </p>
+    </section>
   </body>
 </html>
