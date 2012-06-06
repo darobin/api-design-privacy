@@ -27,13 +27,8 @@
   </head>
   <!-- 
     COMMENTS FROM THE TAG:
-      - restructure the document about howto (something immediately useful to spec writers) and the
-        background that can help with architectural thinking
-      - explain the trade-offs
-      - explain how this relates to data use
       - explain what the problems are, and how these designs help address them without having
         recourse to policy
-      - code examples
       - get feedback from DAP, WebApps
       - http://tools.ietf.org/html/draft-iab-privacy-considerations-02
       - Tschofenig's feedback
@@ -43,7 +38,7 @@
       <p>
         This document provides some background on the threats to users' privacy that Javascript APIs help create
         on the Web, and provides some patterns to mitigate such threats at the API design level. Its primary
-        audience is therefore people involved in the definition and implementation of such APIs.
+        audience is therefore people involved in the definition and implementation inside user agents of such APIs.
       </p>
     </section>
     <section id='sotd'>
@@ -120,27 +115,6 @@
         design and thus leaves the door open for further TAG work on privacy, this specific domain was selected
         as an area of high priority due to the great number of APIs being designed concurrently at this time.
       </p>
-      <section>
-        <h2>Privacy and Security</h2>
-        <p>
-          It is common for discussions of these privacy issues to raise objections that they are a matter of security
-          and not privacy. Conversely, if raised as matters of security, objections will surface according to which
-          they constitute a specifically privacy problem.
-        </p>
-        <p>
-          Overall, it is certainly the case that privacy threat models and security threat models are for the most
-          part very different. But for the cases covered in this document they overlap in such a manner that the
-          only differentiating factor is the attacker's intent or what happens to the private information once it
-          has been acquired. Since the chosen scope restricts us to not leaking said information in the first place,
-          the difference amounts to splitting hairs.
-        </p>
-        <p>
-          It is therefore the authors' considered opinion that this distinction is both immaterial and irrelevant. Both privacy
-          and security are fundamental promises of the Web user agent; when they are broken users suffer and the Web
-          dysfunctions. Providing the means to address the issues raised in this document is therefore a positive
-          step forward irrespective of the way in which they are categorised.
-        </p>
-      </section>
     </section>
     <section>
       <h2>Background</h2>
@@ -444,7 +418,7 @@
         for their contributions to this document:
       </p>
       <p>
-        Ernesto Jiménez, Dominique Hazaël-Massieux, and Frederick Hirsch.
+        Ernesto Jiménez, Dominique Hazaël-Massieux, Frederick Hirsch, and Hannes Tschofenig.
       </p>
     </section>
   </body>
