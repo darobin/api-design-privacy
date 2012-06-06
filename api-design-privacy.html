@@ -27,9 +27,6 @@
   </head>
   <!-- 
     COMMENTS FROM THE TAG:
-      - keep the Saltzer document
-      - keep the Deidre document
-      - revive the principles from DAP
       - restructure the document about howto (something immediately useful to spec writers) and the
         background that can help with architectural thinking
       - clarifying the scope better
@@ -38,13 +35,12 @@
       - relate the history of how this came to be, in the intro
       - have a "related work" section with pointers to other things, explain why there are other bits that
         cover related issues and what they are.
-      - explain why we chose these bits now
       - base this on "patterns" and possibly "antipatterns"
       - explain what the problems are, and how these designs help address them without having
         recourse to policy
       - get feedback from DAP, WebApps
       - http://tools.ietf.org/html/draft-iab-privacy-considerations-02
-      - schoenig's feedback
+      - Tschofenig's feedback
   -->
   <body>
     <section id='abstract'>
@@ -88,6 +84,19 @@
     <section>
       <h2>Scope</h2>
       <p>
+        User privacy on the Web is a multifaceted topic which defies easy answers often causes great disagreement 
+        and debate. This document does not seek to analyse all facets of Web privacy. However, it does recognise 
+        the fact that awareness of Web privacy issues is on the rise, both on the part of Web users and Web developers. 
+        Over the past three years, the W3C has run several workshops and launched two new groups on topics related to 
+        user privacy. The IETF has also strongly expanded its activities in the privacy space. Strong privacy laws 
+        are in force in many parts of the world and being discussed in others.
+      </p>
+      <p>
+        Privacy on the Web is a topic that overlaps technical, social, regulatory and emotional barriers and is 
+        therefore difficult to pin down when creating a technical specification. This paper therefore chooses to 
+        focus on a deliberately limited subset of the problem space.
+      </p>
+      <p>
         In this document we consider only those aspects of privacy and APIs that can be mitigated by API designers,
         such as providing more information than is necessary for a given operation, not making it possible for the
         user to control what information is being shared, and device fingerprinting. Conversely we do not cover other
@@ -111,7 +120,9 @@
         in crossing layer boundaries with a single solution. Such well-scoped changes can furthermore be deployed
         quickly and provide the greater leverage of being accepted in their respective communities. There are
         therefore <em>many</em> privacy issues that this document does not address; we can only encourage others
-        to attempt similar exercises across the board.
+        to attempt similar exercises across the board. Note that while the TAG's remit reaches well beyond API
+        design and thus leaves the door open for further TAG work on privacy, this specific domain was selected
+        as an area of high priority due to the great number of APIs being designed concurrently at this time.
       </p>
       <section>
         <h2>Privacy and Security</h2>
@@ -138,9 +149,92 @@
     <section>
       <h2>Background</h2>
       <p>
-        Privacy by design is a design approach that takes malicious practices for granted and endeavours to prevent and
-        mitigate them from the ground up by applying specific strategies to the creation of software (in this document's
-        scope specifically of APIs).
+        This section introduces some of the background thinking and history behind the development of this
+        document.
+      </p>
+      <section>
+        <h2>Data Minimisation</h2>
+        <p>
+          In their 1975 paper <a href='http://www.cs.virginia.edu/~evans/cs551/saltzer/'>The Protection of Information 
+          in Computer Systems</a>, computer scientists Jerome Saltzer and Michael Schroeder articulated a principle of 
+          “least privilege:”
+        </p>
+        <blockquote>
+          Every program and every user of the system should operate using the least set of privileges 
+          necessary to complete the job. Primarily, this principle limits the damage that can result 
+          from an accident or error. It also reduces the number of potential interactions among privileged 
+          programs to the minimum for correct operation, so that unintentional, unwanted, or improper uses 
+          of privilege are less likely to occur.
+        </blockquote>
+        <p>
+          Although written long before the Web came into use and firmly form a security standpoint, Saltzer 
+          and Schroeder's definition could apply as easily to the distributed world of Web applications as 
+          they did to time-sharing mainframe programming of the 1970s.
+        </p>
+        <p>
+          Today, client-side Web applications are increasingly playing a role as intermediates for our personal,
+          privileged information between the devices we carry and applications residing somewhere on the Internet.
+        </p>
+        <p>
+          In the “<a href='http://tools.ietf.org/id/draft-hansen-privacy-terminology-00.html'>Terminology for 
+          Talking about Privacy by Data Minimization: Anonymity, Unlinkability, Undetectability, Unobservability,
+          Pseudonymity, and Identity Management</a>”, Andreas Pfitzmann, Marit Hansen, and Hannes Tschofenig 
+          succinctly define minimisation as a strategy towards implementing enhanced privacy in (personal) data
+          collection and usage:
+        </p>
+        <blockquote>
+          <p>
+            Data minimization means that first of all, the possibility to collect personal data about others 
+            should be minimized. Next within the remaining possibilities, collecting personal data should be
+            minimized. Finally, the time how long collected personal data is stored should be minimized.
+          </p>
+          <p>
+            Data minimization is the only generic strategy to enable anonymity, since all correct personal data 
+            help to identify if we exclude providing misinformation (inaccurate or erroneous information, provided 
+            usually without conscious effort at misleading, deceiving, or persuading one way or another) 
+            or disinformation (deliberately false or distorted information given out in order to mislead or deceive).
+          </p>
+          <p>
+            Furthermore, data minimization is the only generic strategy to enable unlinkability, since all correct 
+            personal data provides some linkability if we exclude providing misinformation or disinformation.
+          </p>
+        </blockquote>
+        <p>
+          In attempting to apply these principles to the area of client-side Web APIs, the W3C Device APIs Working 
+          Group has refined this definition within their <a href="http://www.w3.org/TR/dap-privacy-reqs/">Device 
+          API Privacy Requirements</a>.
+        </p>
+        <blockquote>
+          <ul>
+            <li>
+              APIs MUST make it easy to request as little information as required for the intended usage. For 
+              instance, an API call should require specific parameters to be set to obtain more information, 
+              and should default to little or no information.
+            </li>
+            <li>
+              APIs SHOULD make it possible for user agents to convey the breadth of information that the requester 
+              is asking for. For instance, if a developer only needs to access a specific field of a user address 
+              book, it should be possible to explicitly mark that field in the API call so that the user agent can 
+              inform the user that this single field of data will be shared.
+            </li>
+            <li>
+              APIs SHOULD make it possible for user agents to let the user select, filter, and transform information
+              before it is shared with the requester. The user agent can then act as a broker for trusted data, and will
+              only transmit data to the requester that the user has explicitly allowed.
+            </li>
+          </ul>
+        </blockquote>
+      </section>
+      <p>
+        “Privacy by design” is a relatively loaded term which has taken on multiple different definitions depending
+        on context. However, since it is the term of trade that has been in use in groups tasked with defining
+        Javascript APIs over the past few years, we have chosen to keep it, while ensuring that a specific definition
+        is provided here.
+      </p>
+      <p>
+        Within the scope of this document, <dfn>privacy by design</dfn> is a design approach that takes malicious 
+        practices for granted and endeavours to prevent and mitigate them from the ground up by applying specific 
+        patterns to the creation of Javascript APIs.
       </p>
       <p>
         It is particularly important in privacy by design that users be exposed to as few direct privacy decisions as
