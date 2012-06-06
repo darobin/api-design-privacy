@@ -34,19 +34,15 @@
         background that can help with architectural thinking
       - clarifying the scope better
       - explain the trade-offs
-      - explain how this is long-lived and architectural, rather than just a field guide
       - explain how this relates to data use
       - relate the history of how this came to be, in the intro
-      - this is more like a BCP
       - have a "related work" section with pointers to other things, explain why there are other bits that
         cover related issues and what they are.
       - explain why we chose these bits now
       - base this on "patterns" and possibly "antipatterns"
       - explain what the problems are, and how these designs help address them without having
         recourse to policy
-      - be clear on which parts of the privacy problem this doesn't solve
       - get feedback from DAP, WebApps
-      - be clear in the scope that this is BCP, current thinking, and not necessarily final
       - http://tools.ietf.org/html/draft-iab-privacy-considerations-02
       - schoenig's feedback
   -->
@@ -54,7 +50,7 @@
     <section id='abstract'>
       <p>
         This document provides some background on the threats to users' privacy that Javascript APIs help create
-        on the Web, and provides some strategies to mitigate such threats at the API design level. Its primary
+        on the Web, and provides some patterns to mitigate such threats at the API design level. Its primary
         audience is therefore people involved in the definition and implementation of such APIs.
       </p>
     </section>
@@ -83,18 +79,39 @@
         hard to mitigate against.
       </p>
       <p>
-        This leads to a strong requirement on these APIs to take user privacy into account. This, in turn, imposes
-        design constraints that are different from those found in more traditional applications programming which
-        entails that experience with APIs designed for the latter seldom applies in full and needs to be revisited.
+        This leads to a strong requirement on these APIs to take user privacy into account from the earliest steps
+        in their conception. This, in turn, imposes design constraints that are different from those found in more
+        traditional applications programming which entails that experience with APIs designed for the latter 
+        seldom applies in full and needs to be revisited.
       </p>
+    </section>
+    <section>
+      <h2>Scope</h2>
       <p>
         In this document we consider only those aspects of privacy and APIs that can be mitigated by API designers,
-        notably providing more information than is necessary for a given operation, not making it possible for the
-        user to control what information is being shared, and user fingerprinting. Conversely we do not cover other
+        such as providing more information than is necessary for a given operation, not making it possible for the
+        user to control what information is being shared, and device fingerprinting. Conversely we do not cover other
         privacy attacks such as tricking the user into providing information or maliciously using collected information
         in ways that were not agreed to by the user. We have chosen this focus because well-designed APIs from the 
         privacy standpoint should provide a solid foundation for better user privacy in general, because they can help
         address the problem at the root, and because we feel that they form a coherent whole.
+      </p>
+      <p>
+        It is important in reading this document that its ambition is simply to capture known best current practices
+        in API design in order to help spread them amongst groups, and so as to provide a common starting point on top
+        of which further privacy-enhancing API design patterns can be built. Its content is therefore not expected to
+        remain static for all of eternity, but rather to evolve so as to capture the community's knowledge
+        of this domain.
+      </p>
+      <p>
+        Privacy is a very broad topic that covers most parts of the technological stack as well as its relationship
+        to society. Rather than attempt to “boil the privacy ocean” and address the entirety of the issue at once,
+        it is the firm opinion of this document's authors that the users' privacy will be best served by addressing
+        the problem separately at each layer that it touches so as to avoid the architectural infelicities involved
+        in crossing layer boundaries with a single solution. Such well-scoped changes can furthermore be deployed
+        quickly and provide the greater leverage of being accepted in their respective communities. There are
+        therefore <em>many</em> privacy issues that this document does not address; we can only encourage others
+        to attempt similar exercises across the board.
       </p>
       <section>
         <h2>Privacy and Security</h2>
@@ -104,7 +121,14 @@
           they constitute a specifically privacy problem.
         </p>
         <p>
-          It is the authors' considered opinion that this distinction is both immaterial and irrelevant. Both privacy
+          Overall, it is certainly the case that privacy threat models and security threat models are for the most
+          part very different. But for the cases covered in this document they overlap in such a manner that the
+          only differentiating factor is the attacker's intent or what happens to the private information once it
+          has been acquired. Since the chosen scope restricts us to not leaking said information in the first place,
+          the difference amounts to splitting hairs.
+        </p>
+        <p>
+          It is therefore the authors' considered opinion that this distinction is both immaterial and irrelevant. Both privacy
           and security are fundamental promises of the Web user agent; when they are broken users suffer and the Web
           dysfunctions. Providing the means to address the issues raised in this document is therefore a positive
           step forward irrespective of the way in which they are categorised.
@@ -112,7 +136,7 @@
       </section>
     </section>
     <section>
-      <h2>Privacy by Design</h2>
+      <h2>Background</h2>
       <p>
         Privacy by design is a design approach that takes malicious practices for granted and endeavours to prevent and
         mitigate them from the ground up by applying specific strategies to the creation of software (in this document's
@@ -164,7 +188,7 @@
       </section>
     </section>
     <section>
-      <h2>Design Strategies</h2>
+      <h2>Privacy-Enhancing API Patterns</h2>
       <p>
         The Web application platform requires the availability of a vast array of functionality that can greatly 
         vary in nature. As a result, not all APIs can look the same, and no single approach can be applied automatically
