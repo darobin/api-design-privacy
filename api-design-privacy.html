@@ -257,7 +257,7 @@
           </p>
         </section>
         <section>
-          <h2>User Fingerprinting</h2>
+          <h2>Device Fingerprinting</h2>
           <p>
             Users are routinely tracked across the Web through the use of cookies and other such identification
             mechanisms. In many cases, these tracking methods can be successfully mitigated by the user agent, for instance
@@ -320,6 +320,41 @@
           assumed that if the user wishes to interact with the game through the gamepad then she will know
           when to action it — and actioning it will provide the application with all the information that
           it needs to operate (but no more than that).
+        </p>
+        <p>
+          The way in which this pattern is supported for the mouse is simply by only providing information
+          on the mouse's behaviour when certain events take place. The approach is therefore to expose
+          event handling (e.g. triggering on click, move, button press) as the sole interface to the device.
+        </p>
+        <p>
+          The Gamepad API supports this in a different, but equally good, fashion. The <code>navigator.gamepads</code>
+          array is initially empty, and only becomes populated when a gamepad has been interacted with (and then,
+          only with those of the connected gamepads that have been manipulated). Once they have been interacted with,
+          for the lifetime of the document these gamepads become available in the array and can be queried for a limited
+          (but essential) set of information.
+        </p>
+      </section>
+      <section>
+        <h2>Graceful Degradation</h2>
+        <p>
+          Graceful degradation is the principle according to which a system will continue to operate at the
+          best of its capabilities despite the fact that a given piece of functionality may be missing.
+          While commonly relied upon in Web technology, notably for document styling, it also has value
+          as a tool that can minimise device fingerprinting.
+        </p>
+        <p>
+          A good example of this pattern in action is the <a href='http://www.w3.org/TR/vibration/'>Vibration API</a>.
+          Traditional APIs for vibration would make it possible for the developer to detect whether the device
+          on which her application is being run features a vibrator. Additionally, attempting to trigger
+          vibration would likely cause an exception or other such code-detectable failure. This would produce
+          at least one bit of additional fingerprinting information, possibly more if the device's vibrators could be
+          further investigated.
+        </p>
+        <p>
+          The Vibration API approaches this problem differently: when a device does not support actual vibration,
+          it does not surface this information. Calling <code>navigator.vibrate(1000)</code> will work just as
+          well as if a vibrator had been present, and indistinguishably from that set up. In addition to making
+          the code more robust, this approach therefore also contributes to fingerprinting reduction.
         </p>
       </section>
       <section>
